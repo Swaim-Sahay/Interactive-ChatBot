@@ -99,7 +99,7 @@ function createMessageElement(isUser) {
 
     const img = document.createElement('img');
     img.className = 'profile-image';
-    img.src = isUser ? 'https://api.dicebear.com/7.x/avataaars/svg?seed=Human' : 'https://api.dicebear.com/7.x/bottts/svg?seed=GeminiAI';
+    img.src = isUser ? 'https://api.dicebear.com/7.x/avataaars/svg?seed=Human' : 'https://api.dicebear.com/7.x/bottts/svg?seed=mitrAI';
 
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
@@ -258,7 +258,7 @@ dom.newChatBtn.onclick = dom.clearChatBtn.onclick = () => {
     state.currentSessionId = Date.now().toString();
     dom.chatMessages.innerHTML = `
         <div class="message bot-message">
-            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=GeminiAI" class="profile-image">
+            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=mitrAI" class="profile-image">
             <div class="message-content">New conversation started.</div>
         </div>`;
     loadSidebar();

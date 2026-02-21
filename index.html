@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini AI Pro</title>
-    
+    <title>mitrAI</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="app-layout">
         <aside class="sidebar">
             <button id="new-chat-btn" class="new-chat-btn">+ New Chat</button>
             <div class="history-list" id="history-list">
-                </div>
+            </div>
         </aside>
 
         <div class="chat-wrapper">
             <div class="chat-container">
                 <header class="chat-header">
                     <div class="header-info">
-                        <h1>Global Gemini 🌍</h1>
+                        <h1>mitrAI 🌍</h1>
                         <span class="status-indicator" id="status-text">● Ready</span>
                     </div>
                     <div class="header-controls">
@@ -32,11 +35,12 @@
                         <button id="clear-chat" class="control-btn" title="Clear Current Chat">🗑️</button>
                     </div>
                 </header>
-                
+
                 <main class="chat-messages" id="chat-messages">
                     <div class="message bot-message">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=GeminiAI" alt="Bot" class="profile-image">
-                        <div class="message-content">Hello! I am your advanced AI. I can see images, hear your voice, and stream my responses. How can I help?</div>
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=mitrAI" alt="Bot" class="profile-image">
+                        <div class="message-content">Hello! I am your advanced AI. I can see images, hear your voice,
+                            and stream my responses. How can I help?</div>
                     </div>
                 </main>
 
@@ -50,9 +54,10 @@
                     <input type="file" id="file-upload" accept="image/*" style="display: none;">
 
                     <button id="mic-button" class="icon-btn" title="Click to Speak">🎙️</button>
-                    
-                    <textarea id="user-input" placeholder="Type, speak, or drop an image... (Enter to send)" rows="1"></textarea>
-                    
+
+                    <textarea id="user-input" placeholder="Type, speak, or drop an image... (Enter to send)"
+                        rows="1"></textarea>
+
                     <button id="send-button" class="icon-btn send-style" aria-label="Send message">➤</button>
                 </footer>
             </div>
@@ -60,4 +65,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
