@@ -40,8 +40,8 @@ app.post('/api/chat', async (req, res) => {
         }
 
         // Pipe the stream back to the client
-        response.body.on('data', chunk => res.write(chunk));
-        response.body.on('end', () => res.end());
+        const { Readable } = require('stream');
+        Readable.fromWeb(response.body).pipe(res);
 
     } catch (error) {
         console.error('Server error:', error);

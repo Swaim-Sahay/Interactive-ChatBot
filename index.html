@@ -16,11 +16,21 @@
 </head>
 
 <body>
-    <div class="app-layout">
+    <div id="login-screen" class="login-screen">
+        <div class="login-box">
+            <h1>Welcome to mitrAI</h1>
+            <p>Please enter your name to continue</p>
+            <input type="text" id="username-input" placeholder="Your Name" />
+            <button id="login-btn" class="login-btn">Start Chatting</button>
+        </div>
+    </div>
+
+    <div class="app-layout" id="app-layout" style="display: none;">
         <aside class="sidebar">
             <button id="new-chat-btn" class="new-chat-btn">+ New Chat</button>
             <div class="history-list" id="history-list">
             </div>
+            <button id="logout-btn" class="logout-btn" style="display: none;">Log Out</button>
         </aside>
 
         <div class="chat-wrapper">

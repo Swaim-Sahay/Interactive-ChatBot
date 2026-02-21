@@ -13,7 +13,12 @@ const dom = {
     newChatBtn: document.getElementById('new-chat-btn'),
     clearChatBtn: document.getElementById('clear-chat'),
     voiceToggle: document.getElementById('voice-toggle'),
-    statusText: document.getElementById('status-text')
+    statusText: document.getElementById('status-text'),
+    loginScreen: document.getElementById('login-screen'),
+    appLayout: document.getElementById('app-layout'),
+    usernameInput: document.getElementById('username-input'),
+    loginBtn: document.getElementById('login-btn'),
+    logoutBtn: document.getElementById('logout-btn')
 };
 
 let state = {
@@ -30,7 +35,46 @@ marked.setOptions({
 });
 
 // --- Init ---
-loadSidebar();
+function checkAuth() {
+    const user = localStorage.getItem('mitrAI_user');
+    if (user) {
+        dom.loginScreen.style.display = 'none';
+        dom.appLayout.style.display = 'flex';
+        dom.statusText.textContent = `● Ready (${user})`;
+        loadSidebar();
+    } else {
+        dom.loginScreen.style.display = 'flex';
+        dom.appLayout.style.display = 'none';
+    }
+}
+
+dom.loginBtn.onclick = () => {
+    const name = dom.usernameInput.value.trim();
+    if (name) {
+        localStorage.setItem('mitrAI_user', name);
+        checkAuth();
+    }
+};
+
+dom.usernameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') dom.loginBtn.click();
+});
+
+dom.logoutBtn.onclick = () => {
+    localStorage.removeItem('mitrAI_user');
+    localStorage.removeItem('geminiSessions'); // Optional: clear chat history on logout
+    dom.usernameInput.value = '';
+    state.history = [];
+    state.currentSessionId = Date.now().toString();
+    dom.chatMessages.innerHTML = `
+        <div class="message bot-message">
+            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=mitrAI" class="profile-image">
+            <div class="message-content">New conversation started.</div>
+        </div>`;
+    checkAuth();
+};
+
+checkAuth();
 
 // --- 1. Audio (Mic & Speaker) ---
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
