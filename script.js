@@ -38,6 +38,7 @@ let recognition = SpeechRecognition ? new SpeechRecognition() : null;
 
 if (recognition) {
     recognition.interimResults = true;
+    recognition.lang = 'hi-IN'; // Enable Hindi speech recognition
     recognition.onstart = () => {
         state.isListening = true;
         dom.micBtn.classList.add('listening');
@@ -71,6 +72,18 @@ function speakText(text) {
     if (!state.isVoiceEnabled || !('speechSynthesis' in window)) return;
     const cleanText = text.replace(/[*#`~>_]/g, '').replace(/\[.*?\]\(.*?\)/g, '');
     const utterance = new SpeechSynthesisUtterance(cleanText);
+
+    // Auto-detect Hindi text
+    const isHindi = /[\u0900-\u097F]/.test(cleanText);
+    if (isHindi) {
+        utterance.lang = 'hi-IN';
+        const voices = window.speechSynthesis.getVoices();
+        const hindiVoice = voices.find(v => v.lang.includes('hi') || v.name.toLowerCase().includes('hindi'));
+        if (hindiVoice) {
+            utterance.voice = hindiVoice;
+        }
+    }
+
     window.speechSynthesis.speak(utterance);
 }
 
