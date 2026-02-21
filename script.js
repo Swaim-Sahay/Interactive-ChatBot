@@ -208,14 +208,16 @@ async function streamResponse(prompt, imageBase64) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
         let botFullText = "";
+        let buffer = ""; // Maintain a buffer for incomplete lines
         contentContainer.innerHTML = ""; // Clear "Thinking..."
 
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split('\n');
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop(); // Keep the incomplete last line in the buffer
 
             for (const line of lines) {
                 if (line.startsWith('data: ')) {
@@ -223,14 +225,14 @@ async function streamResponse(prompt, imageBase64) {
                     if (dataStr === '[DONE]') break;
                     try {
                         const data = JSON.parse(dataStr);
-                        if (data.candidates && data.candidates[0].content.parts[0].text) {
+                        if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
                             botFullText += data.candidates[0].content.parts[0].text;
                             // Parse markdown instantly as it streams
                             contentContainer.innerHTML = DOMPurify.sanitize(marked.parse(botFullText));
                             injectCopyButtons(contentContainer);
                             dom.chatMessages.scrollTop = dom.chatMessages.scrollHeight;
                         }
-                    } catch (e) { /* Ignore partial JSON chunks */ }
+                    } catch (e) { /* Ignore parsing errors for safety */ }
                 }
             }
         }
