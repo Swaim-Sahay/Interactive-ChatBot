@@ -1,6 +1,4 @@
-const API_KEY = 'AIzaSyBYB9n756PwSZ3o1UWDMIXPOA51dB_VTUc'; // Your API Key
-// Notice we use streamGenerateContent with alt=sse for typing effect
-const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse';
+const API_URL = '/api/chat';
 
 const dom = {
     chatMessages: document.getElementById('chat-messages'),
@@ -138,7 +136,7 @@ async function streamResponse(prompt, imageBase64) {
     contentContainer.innerHTML = "<span style='color: var(--text-muted)'>Thinking...</span>";
 
     try {
-        const response = await fetch(`${API_URL}&key=${API_KEY}`, {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
