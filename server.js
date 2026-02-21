@@ -17,7 +17,7 @@ app.post('/api/chat', async (req, res) => {
         }
 
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
 
         // Add headers for SSE
         res.setHeader('Content-Type', 'text/event-stream');
